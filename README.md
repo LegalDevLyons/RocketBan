@@ -1,6 +1,8 @@
 🚀 RocketBan
 
+
    RocketBan is a modular, high-performance wrapper for Fail2Ban that enhances brute-force protection across Linux servers. It monitors authentication logs in real time, detects suspicious patterns using customizable regex rules, and dynamically applies IP bans via iptables or nftables. Whether you're running a personal VPS or managing enterprise infrastructure, RocketBan gives you fast, flexible, and reliable intrusion prevention—with just the right amount of attitude.
+
 
 
 🔧 Features
@@ -27,12 +29,33 @@ Verbose Logging & Audit Trail:
     Track bans, unbans, and rule triggers with detailed logs for forensic analysis.
 
 
+
 📜 License & Usage
 --------------------------------------------------------------------------------------------------------------
    RocketBan is released under the MIT License, a permissive open-source license that allows anyone to use, modify, distribute, and even incorporate the code into commercial projects—just keep the original license and attribution intact.
 
 
+
+🤝 Contributing
 --------------------------------------------------------------------------------------------------------------
+Pull requests are welcome! If you have ideas for new features, better regex patterns, or support for additional firewall backends, feel free to open an issue or submit a PR.
+
+This project is meant to be shared, remixed, and improved. Security should be collaborative—and a little fun.
+
+
+
+💬 Contact
+--------------------------------------------------------------------------------------------------------------
+For questions, feedback, or collaboration opportunities, reach out via GitHub Issues or email: info@midwestmetrics.org.
+
+
+
+🧠 Credits
+--------------------------------------------------------------------------------------------------------------
+RocketBan was built with love, caffeine, and a healthy dose of frustration toward brute-force bots. Inspired by Fail2Ban, hardened by experience.
+
+
+
 You are encouraged to:
 
    ✅ Use it in personal or business environments
@@ -43,9 +66,6 @@ You are encouraged to:
 
    ✅ Share it with others who need better brute-force protection
 
-This project is meant to be shared, remixed, and improved. Security should be collaborative—and a little fun.
-
---------------------------------------------------------------------------------------------------------------
 
 
 📦 Installation
