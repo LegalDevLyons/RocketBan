@@ -1,33 +1,28 @@
-# 🚀 RocketBan
+🚀 RocketBan
 
-**RocketBan** is a modular, high-performance wrapper for Fail2Ban that enhances brute-force protection across Linux servers. It monitors authentication logs in real time, detects suspicious patterns using customizable regex rules, and dynamically applies IP bans via `iptables` or `nftables`. Whether you're running a personal VPS or managing enterprise infrastructure, RocketBan gives you fast, flexible, and reliable intrusion prevention—with just the right amount of attitude.
+RocketBan is a modular, high-performance wrapper for Fail2Ban that enhances brute-force protection across Linux servers. It monitors authentication logs in real time, detects suspicious patterns using customizable regex rules, and dynamically applies IP bans via iptables or nftables. Whether you're running a personal VPS or managing enterprise infrastructure, RocketBan gives you fast, flexible, and reliable intrusion prevention—with just the right amount of attitude.
+🔧 Features
 
----
+    Real-Time Log Monitoring
+    Continuously scans authentication logs for failed login attempts and other suspicious activity.
 
-## 🔧 Features:
+    Regex-Based Pattern Matching
+    Define custom rules to match brute-force attempts across SSH, FTP, web apps, and more.
 
-- **Real-Time Log Monitoring**  
-  Continuously scans authentication logs for failed login attempts and other suspicious activity.
+    Dynamic IP Banning
+    Automatically applies firewall rules using iptables or nftables to block offending IPs.
 
-- **Regex-Based Pattern Matching**  
-  Define custom rules to match brute-force attempts across SSH, FTP, web apps, and more.
+    Timed Unban Logic
+    Optionally unban IPs after a configurable timeout period.
 
-- **Dynamic IP Banning**  
-  Automatically applies firewall rules using `iptables` or `nftables` to block offending IPs.
+    Multi-Service Support
+    Monitor multiple log sources simultaneously with service-specific configurations.
 
-- **Timed Unban Logic**  
-  Optionally unban IPs after a configurable timeout period.
+    Threat Feed Integration (Optional)
+    Pull known malicious IPs from external sources and preemptively block them.
 
-- **Multi-Service Support**  
-  Monitor multiple log sources simultaneously with service-specific configurations.
-
-- **Threat Feed Integration (Optional)**  
-  Pull known malicious IPs from external sources and preemptively block them.
-
-- **Verbose Logging & Audit Trail**  
-  Track bans, unbans, and rule triggers with detailed logs for forensic analysis.
-
----
+    Verbose Logging & Audit Trail
+    Track bans, unbans, and rule triggers with detailed logs for forensic analysis.
 
 📜 License & Usage
 
@@ -35,23 +30,19 @@ RocketBan is released under the MIT License, a permissive open-source license th
 
 You are encouraged to:
 
-    ✅ Use it in personal or business environments
+✅ Use it in personal or business environments
 
-    ✅ Fork it and build your own version
+✅ Fork it and build your own version
 
-    ✅ Submit pull requests or improvements
+✅ Submit pull requests or improvements
 
-    ✅ Share it with others who need better brute-force protection
+✅ Share it with others who need better brute-force protection
 
 This project is meant to be shared, remixed, and improved. Security should be collaborative—and a little fun.
-
----
-
-## 📦 Installation
+📦 Installation
 
 Clone the repository and make the script executable:
 
-```bash
 git clone https://github.com/yourusername/rocketban.git
 cd rocketban
 chmod +x rocketban.sh
