@@ -4,7 +4,7 @@
 
 ---
 
-## 🔧 Features
+## 🔧 Features:
 
 - **Real-Time Log Monitoring**  
   Continuously scans authentication logs for failed login attempts and other suspicious activity.
