@@ -16,11 +16,8 @@ load_config() {
     while IFS= read -r line; do
         line=$(echo "$line" | sed 's/#.*//g' | xargs)
         [[ -z "$line" ]] && continue
-        if [[ "$line" =~
-
-\[(.*)\]
-
- ]]; then
+        
+        if [[ "$line" =~ \[([^]]+)\] ]]; then
             section="${BASH_REMATCH[1]}"
         elif [[ "$line" =~ ^([^=]+)=(.*)$ ]]; then
             key="${BASH_REMATCH[1]}"
@@ -36,6 +33,25 @@ parse_logs() {
     local pattern=$(eval echo "\${${service}_pattern}")
     local threshold=$(eval echo "\${${service}_threshold}")
     local ban_time=$(eval echo "\${${service}_ban_time}")
+
+    # Check if required variables are set
+    if [[ -z "$log_path" || -z "$pattern" || -z "$threshold" ]]; then
+        echo "Warning: Missing configuration for service '$service'"
+        return
+    fi
+
+    # Check if log file exists
+    if [[ ! -f "$log_path" ]]; then
+        echo "Warning: Log file '$log_path' not found for service '$service'"
+        return
+    fi
+
+    if $VERBOSE; then
+        echo "Processing service: $service"
+        echo "  Log path: $log_path"
+        echo "  Pattern: $pattern"
+        echo "  Threshold: $threshold"
+    fi
 
     grep -E "$pattern" "$log_path" | while read -r line; do
         if [[ "$line" =~ $pattern ]]; then
@@ -55,8 +71,13 @@ ban_ip() {
     local firewall=$(eval echo "\${${service}_firewall}")
     local ban_time=$(eval echo "\${${service}_ban_time}")
 
+    if [[ -z "$firewall" ]]; then
+        echo "Error: No firewall specified for service '$service'"
+        return
+    fi
+
     if $DRY_RUN; then
-        echo "[DRY RUN] Would ban $ip via $firewall"
+        echo "[DRY RUN] Would ban $ip via $firewall for $ban_time seconds"
         return
     fi
 
@@ -68,13 +89,21 @@ ban_ip() {
         iptables -I INPUT -s "$ip" -j DROP
     elif [[ "$firewall" == "nftables" ]]; then
         nft add rule inet filter input ip saddr "$ip" drop
+    else
+        echo "Error: Unknown firewall '$firewall' for service '$service'"
+        return
     fi
 
     echo "$ip,$(date +%s),$ban_time" >> banned_ips.log
 }
 
 unban_ips() {
-    if [[ ! -f banned_ips.log ]]; then return; fi
+    if [[ ! -f banned_ips.log ]]; then
+        if $VERBOSE; then
+            echo "No banned IPs found"
+        fi
+        return
+    fi
 
     local now=$(date +%s)
     local temp_file=$(mktemp)
@@ -112,6 +141,16 @@ main() {
         exit 1
     fi
 
+    if [[ ! -f "$CONFIG_FILE" ]]; then
+        echo "Error: Config file '$CONFIG_FILE' not found!"
+        exit 1
+    fi
+
+    if [[ ! -r "$CONFIG_FILE" ]]; then
+        echo "Error: Cannot read config file '$CONFIG_FILE'!"
+        exit 1
+    fi
+
     load_config
 
     if $UNBAN; then
@@ -119,11 +158,10 @@ main() {
         exit 0
     fi
 
-    for section in $(grep -oP '^
-
-\[\K[^\]
-
-]+' "$CONFIG_FILE"); do
+    # Extract sections from config file
+    sections=$(grep -oP '^\[[^]]+\]' "$CONFIG_FILE" | tr -d '[]')
+    
+    for section in $sections; do
         parse_logs "$section"
     done
 }
