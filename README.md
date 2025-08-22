@@ -72,6 +72,6 @@ You are encouraged to:
 --------------------------------------------------------------------------------------------------------------
 Clone the repository and make the script executable:
 
-    git clone https://github.com/yourusername/rocketban.git
+    git clone https://github.com/LegalDevLyons/rocketban.git
     cd rocketban
     chmod +x rocketban.sh
